@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "cmath": "c",
+        "stdexcept": "cpp",
+        "text_encoding": "cpp"
+    }
+}
