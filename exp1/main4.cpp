@@ -1,56 +1,58 @@
-//Write a C++ program to understand overloading of unary operators, binary operators and insertion and extraction operators
 #include <iostream>
 using namespace std;
 
-class Complex {
+class Number {
 private:
-    float real, imag;
+    int value;
 
 public:
-    Complex() :real(0), imag(0) {}
-    Complex(float r, float i) :real(r), imag(i) {}
+    // Constructor
+    Number(int v = 0) : value(v) {}
 
-    Complex operator-() const {
-        return Complex(-real, -imag);
+    // Display function
+    void show() {
+        cout << "Value: " << value << endl;
     }
 
-    Complex operator+(const Complex& other) const {
-        return Complex(real + other.real, imag + other.imag);
+    // Unary operator overloading (-)
+    Number operator-() const {
+        return Number(-value);
     }
 
-    friend ostream& operator<<(ostream& out, const Complex& c) {
-        out << c.real;
-        if (c.imag >= 0)
-            out <<" + " <<c.imag <<"i";
-        else
-            out <<" - " <<-c.imag <<"i";
-        return out;
+    // Binary operator overloading (+)
+    Number operator+(const Number &obj) const {
+        return Number(value + obj.value);
     }
 
-    friend istream& operator>>(istream& in, Complex& c) {
-        cout <<"Enter real part: ";
-        in >>c.real;
-        cout << "Enter imaginary part: ";
-        in >> c.imag;
-        return in;
+    // Function to read value
+    void input() {
+        cout << "Enter a number: ";
+        cin >> value;
     }
 };
 
 int main() {
-    Complex c1, c2;
-    cout <<"Enter first complex number:\n";
-    cin >>c1;
-    cout <<"Enter second complex number:\n";
-    cin >>c2;
+    Number n1, n2, result;
 
-    cout <<"\nFirst complex number: " <<c1 <<endl;
-    cout <<"Second complex number: " <<c2 <<endl;
+    cout << "Enter first number\n";
+    n1.input();
 
-    Complex neg = -c1;
-    cout <<"\nUnary minus of first complex number: " <<neg <<endl;
+    cout << "Enter second number\n";
+    n2.input();
 
-    Complex sum =c1+c2;
-    cout <<"Sum of the two complex numbers: " <<sum <<endl;
+    cout << "\nOriginal numbers:" << endl;
+    n1.show();
+    n2.show();
+
+    // Binary operator +
+    result = n1 + n2;
+    cout << "\nAfter adding n1 + n2:" << endl;
+    result.show();
+
+    // Unary operator -
+    result = -n1;
+    cout << "\nAfter negating n1:" << endl;
+    result.show();
 
     return 0;
 }
