@@ -1,46 +1,33 @@
 #include <iostream>
 using namespace std;
-using std::cout;
-using std::cin;
-
-class Empolyee {
+class Employee {
 private:
     int em_id;
     string name;
     double salary;
     string status;
     double newsalary;
-
-
 public:
     void inputData() {
-        cout << "Enter The Empolyee id: ";
+        cout << "Enter The Employee id: ";
         cin >> em_id;
         cin.ignore();
         cout << "Enter Your Name: ";
         getline(cin, name);
         cout << "Enter your Salary: ";
         cin >> salary;
-        newsalary = salary; 
-        status = "No Change";
-    }
-
+        newsalary = salary;
+        status = "No Change";}
     void displayData() {
-        cout << em_id << "\t" << name << "\t" << salary << "\t" << newsalary << "\t" << status << "\n";
-    }
-
-
+        cout << em_id << "\t" << name << "\t" << salary << "\t" 
+            << newsalary << "\t" << status << "\n";}
     void increment(double percent) {
         newsalary = salary + (salary * percent / 100.0);
-        status = "Incremented";
-    }
-
-    void decriment(double percent) {int found = 0;
+        status = "Promoted";}
+    void decrement(double percent) {
         newsalary = salary - (salary * percent / 100.0);
-        status = "Decremented";
-    }
-
-    void changeSalary(int id,int n){
+        status = "Demoted"; }
+    bool changeSalary(int id) {
         if (em_id == id) {
             int choice;
             double percent;
@@ -49,39 +36,32 @@ public:
             cout << "Enter percentage: ";
             cin >> percent;
             if (choice == 1) {
-                increment(percent);
-            } else if (choice == 2) {
-                decriment(percent);
+                increment(percent); } 
+                else if (choice == 2) {
+                decrement(percent);
             } else {
-                cout << "Invalid choice.\n";
-            }
-    }else{
-        cout<<"Empoyee Does not Exist";
-    }
-    }
-};
-
-
+                cout << "Invalid choice.\n";}
+            return true; }
+        return false;  } };
 int main() {
-    int n,id;
-    cout<<"Enter the number of Employies:";
-    cin>>n;
-    Empolyee s[n];
-    for(int i=0;i<n;i++){
-        s[i].inputData();
-    }
-   while (1) {
-    cout << "Enter Employee id to change Salary (or -1 to exit): ";
-    cin >> id;
-    if (id == -1) break; 
-    for(int i=0;i<n;i++){
-        s[i].changeSalary(id,n);
-    }
-    
-    }
-    cout<<"Empolyee ID\tName\tPresent Salary\tNew Salary\tStatus\n";
+    int n, id;
+    cout << "Enter the number of Employees: ";
+    cin >> n;
+    Employee s[n];
     for (int i = 0; i < n; i++) {
-        s[i].displayData();
-    }
-    return 0;
-}
+        s[i].inputData();}
+    while (1) {
+        cout << "Enter Employee id to change Salary (or -1 to exit): ";
+        cin >> id;
+        if (id == -1) break;
+        bool found = false;
+        for (int i = 0; i < n; i++) {
+            if (s[i].changeSalary(id)) {
+                found = true;
+                break; }}
+        if (!found) {
+            cout << "Employee Does not Exist\n";} }
+    cout << "Employee ID\tName\tPresent Salary\tNew Salary\tStatus\n";
+    for (int i = 0; i < n; i++) {
+        s[i].displayData(); }
+    return 0;}
