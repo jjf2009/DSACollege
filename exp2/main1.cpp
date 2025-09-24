@@ -6,7 +6,7 @@ void swaping(S num1, S num2) {
     S temp = num1;
     num1 = num2;
     num2 = temp;
-    cout << "Num1:"<< num1 <<"Num2:"<< num2 << endl;
+    cout << "Num1:"<< num1 <<" " <<"Num2:"<< num2 << endl;
 }
 
 int main() {

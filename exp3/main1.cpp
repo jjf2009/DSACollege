@@ -1,40 +1,30 @@
 #include <iostream>
 using namespace std;
-
 struct Node
 {
     int data;
     Node *next;
 };
-
 class LinkedList
 {
 private:
     Node *head;
     Node *tail;
-
 public:
     LinkedList() : head(nullptr), tail(nullptr) {}
-
-    // Creation (add first node)
-    void create(int value)
-    {
+    void create(int value) {
         Node *newNode = new Node{value, nullptr};
         head = tail = newNode;
-    }
+        display();}
 
-    // Insert at start
-    void insertStart(int value)
-    {
+    void insertStart(int value) {
         Node *newNode = new Node{value, head};
         head = newNode;
         if (!tail)
             tail = newNode;
-    }
+    display(); }
 
-    // Insert at end
-    void insertEnd(int value)
-    {
+    void insertEnd(int value){
         Node *newNode = new Node{value, nullptr};
         if (!head)
         {
@@ -43,10 +33,9 @@ public:
         }
         tail->next = newNode;
         tail = newNode;
-    }
+        display();}
 
-    void insertAt(int pos, int value)
-    {
+    void insertAt(int pos, int value){
         if (pos <= 1)
         {
             insertStart(value);
@@ -58,40 +47,38 @@ public:
         if (!temp || !temp->next)
         {
             insertEnd(value);
+
             return;
         }
         Node *newNode = new Node{value, temp->next};
         temp->next = newNode;
-    }
+        display();}
 
-    // Search for a value
-    bool search(int value)
-    {
+    int search(int value){   
+        int count=1;
         Node *temp = head;
         while (temp)
         {
-            if (temp->data == value)
-                return true;
+            if (temp->data == value){
+                return count;
+            }
+            count=count+1;
             temp = temp->next;
+            
         }
-        return false;
-    }
+        return -1;
+        display();}
 
-    // Display/Traverse
-    void display()
-    {
+    void display(){
         Node *temp = head;
         while (temp)
         {
             cout << temp->data << " ";
             temp = temp->next;
         }
-        cout << endl;
-    }
+        cout << endl;}
 
-    // Reverse the list
-    void reverse()
-    {
+    void reverse(){
         Node *prev = nullptr;
         Node *curr = head;
         tail = head;
@@ -103,11 +90,9 @@ public:
             curr = next;
         }
         head = prev;
-    }
+        display();}
 
-    // Delete at start
-    void deleteStart()
-    {
+    void deleteStart(){
         if (!head)
             return;
         Node *temp = head;
@@ -115,11 +100,9 @@ public:
         delete temp;
         if (!head)
             tail = nullptr;
-    }
+        display();}
 
-    // Delete at end
-    void deleteEnd()
-    {
+    void deleteEnd(){
         if (!head)
             return;
         if (head == tail)
@@ -134,11 +117,9 @@ public:
         delete tail;
         tail = temp;
         tail->next = nullptr;
-    }
+        display();}
 
-    // Delete at position (1-based index)
-    void deleteAt(int pos)
-    {
+    void deleteAt(int pos){
         if (pos <= 1)
         {
             deleteStart();
@@ -154,24 +135,14 @@ public:
         if (delNode == tail)
             tail = temp;
         delete delNode;
-    }
-};
-#include <iostream>
-using namespace std;
-
-// Assuming LinkedList class is already defined above
-
-int main()
-{
+        display();}};
+int main(){
     LinkedList list;
     int choice, value, pos;
-
     cout << "Enter first value of the Node: ";
     cin >> value;
     list.create(value);
-
-    while (true)
-    {
+    while (true){
         cout << "\n=== Linked List Menu ===\n";
         cout << "1. Insert at Start\n";
         cout << "2. Insert at End\n";
@@ -185,7 +156,6 @@ int main()
         cout << "0. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
-
         switch (choice)
         {
         case 1:
@@ -193,59 +163,46 @@ int main()
             cin >> value;
             list.insertStart(value);
             break;
-
         case 2:
             cout << "Enter value to insert at end: ";
             cin >> value;
             list.insertEnd(value);
             break;
-
         case 3:
             cout << "Enter position and value: ";
             cin >> pos >> value;
             list.insertAt(pos, value);
             break;
-
         case 4:
             list.deleteStart();
             cout << "Deleted node at start.\n";
             break;
-
         case 5:
             list.deleteEnd();
             cout << "Deleted node at end.\n";
             break;
-
         case 6:
             cout << "Enter position to delete: ";
             cin >> pos;
             list.deleteAt(pos);
             break;
-
         case 7:
             cout << "Enter value to search: ";
             cin >> value;
-            if (list.search(value))
-                cout << "Value found in the list.\n";
-            else
+            if (list.search(value)==-1)
                 cout << "Value NOT found.\n";
+            else
+            cout << "Value found at postion "<<list.search(value)<<" in the list.\n";
             break;
-
         case 8:
             list.reverse();
             cout << "List reversed.\n";
             break;
-
         case 9:
             cout << "Current List: ";
             list.display();
             break;
-
         case 0:
             return 0;
-
         default:
-            cout << "Invalid choice! Try again.\n";
-        }
-    }
-}
+            cout << "Invalid choice! Try again.\n";}}}

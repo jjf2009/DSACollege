@@ -1,29 +1,23 @@
 #include <iostream>
 using namespace std;
-
 template <typename T>
 class Vector {
 private:
     T vectori[3];
-
 public:
-
     Vector() {
         vectori[0] = 0;
         vectori[1] = 0;
         vectori[2] = 0;
     }
-
     void display() {
         cout << "Vector:"<< vectori[0] << "i + " << vectori[1] << "j + " << vectori[2] << "k" << endl;
     }
-
     void create(T vali, T valj, T valk) {
         vectori[0] = vali;
         vectori[1] = valj;
         vectori[2] = valk;
     }
-
     void modify(char index, T value) {
         if(index == 'i'){
             vectori[0]=value;
@@ -39,7 +33,6 @@ public:
         }
     }
 };
-
 int main() {
     Vector<int> intVector;
     int i ,j , k,value;
