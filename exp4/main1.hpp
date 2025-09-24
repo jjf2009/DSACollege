@@ -134,35 +134,35 @@ void Doubly_linked_list<T>::delete_by_position(T pos){
 }
 
 template<typename T>
-void Doubly_linked_list<T>::display_forward(){
+void Doubly_linked_list<T>::display_forward() {
     if (head == nullptr) {
-            cout << "The list is empty." << endl;
-            return;
-        }
-        cout << "List (forward): NULL <-> ";
-        Node<T>* temp = head;
-        while (temp != nullptr) {
-            cout << temp->data << " <-> ";
-            temp = temp->next;
-        }
-        cout << "NULL" << endl;
-
+        cout << "List is empty." << endl;
+        return;
+    }
+    cout << "Forward: ";
+    Node<T>* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
 }
 
 template<typename T>
-void Doubly_linked_list<T>::display_backard(){
-   if (tail == nullptr) {
-            cout << "The list is empty." << endl;
-            return;
-        }
-        cout << "List (backward): NULL <-> ";
-        Node<T>* temp = tail;
-        while (temp != nullptr) {
-            cout << temp->data << " <-> ";
-            temp = temp->prev;
-        }
-        cout << "NULL" << endl;
+void Doubly_linked_list<T>::display_backard() {
+    if (tail == nullptr) {
+        cout << "List is empty." << endl;
+        return;
+    }
+    cout << "Backward: ";
+    Node<T>* temp = tail;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->prev;
+    }
+    cout << endl;
 }
+
 
 template<typename T>
 void Doubly_linked_list<T>::reverse(){

@@ -1,14 +1,14 @@
 #include <iostream>
-#include "doubly_linked_list.hpp"
+#include "main1.hpp"
 using namespace std;
 
 int main(){
 
-    Doubly_linked_list<int> myList;
+    Doubly_linked_list<int> Doubly_Linked_List;
     int choice, value, pos;
 
     do {
-        cout << "\n--- Doubly Linked List Menu (Integers) ---" << endl;
+        cout << "\n Doubly Linked List Menu" << endl;
         cout << "1. Insert at End" << endl;
         cout << "2. Insert at Beginning" << endl;
         cout << "3. Delete by Position" << endl;
@@ -24,31 +24,31 @@ int main(){
             case 1:
                 cout << "Enter value to insert: ";
                 cin >> value;
-                myList.insert_at_end(value);
+                Doubly_Linked_List.insert_at_end(value);
                 break;
             case 2:
                 cout << "Enter value to insert: ";
                 cin >> value;
-                myList.insert_at_beginning(value);
+                Doubly_Linked_List.insert_at_beginning(value);
                 break;
             case 3:
                 cout << "Enter value to delete: ";
                 cin >> value;
-                myList.delete_by_position(value);
+                Doubly_Linked_List.delete_by_position(value);
                 break;
             case 4:
                 cout << "Enter value to search: ";
                 cin >> value;
-                myList.search(value);
+                Doubly_Linked_List.search(value);
                 break;
             case 5:
-                myList.reverse();
+                Doubly_Linked_List.reverse();
                 break;
             case 6:
-                myList.display_forward();
+                Doubly_Linked_List.display_forward();
                 break;
             case 7:
-                myList.display_backard();
+                Doubly_Linked_List.display_backard();
                 break;
             case 0:
                 cout << "Exiting the program. Goodbye!" << endl;
