@@ -1,148 +1,163 @@
 #include <iostream>
 using namespace std;
-struct Node
-{
+
+struct Node {
     int data;
     Node *next;
 };
-class LinkedList
-{
+
+class LinkedList {
 private:
     Node *head;
     Node *tail;
+
 public:
-    LinkedList() : head(nullptr), tail(nullptr) {}
-    void create(int value) {
-        Node *newNode = new Node{value, nullptr};
-        head = tail = newNode;
-        display();}
+    LinkedList();
+    void create(int value);
+    void insertStart(int value);
+    void insertEnd(int value);
+    void insertAt(int pos, int value);
+    int search(int value);
+    void display();
+    void reverse();
+    void deleteStart();
+    void deleteEnd();
+    void deleteAt(int pos);
+};
 
-    void insertStart(int value) {
-        Node *newNode = new Node{value, head};
-        head = newNode;
-        if (!tail)
-            tail = newNode;
-    display(); }
+LinkedList::LinkedList() : head(nullptr), tail(nullptr) {}
 
-    void insertEnd(int value){
-        Node *newNode = new Node{value, nullptr};
-        if (!head)
-        {
-            head = tail = newNode;
-            return;
-        }
-        tail->next = newNode;
+void LinkedList::create(int value) {
+    Node *newNode = new Node{value, nullptr};
+    head = tail = newNode;
+    display();
+}
+
+void LinkedList::insertStart(int value) {
+    Node *newNode = new Node{value, head};
+    head = newNode;
+    if (!tail)
         tail = newNode;
-        display();}
+    display();
+}
 
-    void insertAt(int pos, int value){
-        if (pos <= 1)
-        {
-            insertStart(value);
-            return;
-        }
-        Node *temp = head;
-        for (int i = 1; temp && i < pos - 1; ++i)
-            temp = temp->next;
-        if (!temp || !temp->next)
-        {
-            insertEnd(value);
+void LinkedList::insertEnd(int value) {
+    Node *newNode = new Node{value, nullptr};
+    if (!head) {
+        head = tail = newNode;
+        display();
+        return;
+    }
+    tail->next = newNode;
+    tail = newNode;
+    display();
+}
 
-            return;
-        }
-        Node *newNode = new Node{value, temp->next};
-        temp->next = newNode;
-        display();}
+void LinkedList::insertAt(int pos, int value) {
+    if (pos <= 1) {
+        insertStart(value);
+        return;
+    }
+    Node *temp = head;
+    for (int i = 1; temp && i < pos - 1; ++i)
+        temp = temp->next;
+    if (!temp || !temp->next) {
+        insertEnd(value);
+        return;
+    }
+    Node *newNode = new Node{value, temp->next};
+    temp->next = newNode;
+    display();
+}
 
-    int search(int value){   
-        int count=1;
-        Node *temp = head;
-        while (temp)
-        {
-            if (temp->data == value){
-                return count;
-            }
-            count=count+1;
-            temp = temp->next;
-            
-        }
-        return -1;
-        display();}
+int LinkedList::search(int value) {
+    int count = 1;
+    Node *temp = head;
+    while (temp) {
+        if (temp->data == value)
+            return count;
+        count++;
+        temp = temp->next;
+    }
+    return -1;
+}
 
-    void display(){
-        Node *temp = head;
-        while (temp)
-        {
-            cout << temp->data << " ";
-            temp = temp->next;
-        }
-        cout << endl;}
+void LinkedList::display() {
+    Node *temp = head;
+    while (temp) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
 
-    void reverse(){
-        Node *prev = nullptr;
-        Node *curr = head;
-        tail = head;
-        while (curr)
-        {
-            Node *next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
-        }
-        head = prev;
-        display();}
+void LinkedList::reverse() {
+    Node *prev = nullptr;
+    Node *curr = head;
+    tail = head;
+    while (curr) {
+        Node *next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    head = prev;
+    display();
+}
 
-    void deleteStart(){
-        if (!head)
-            return;
-        Node *temp = head;
-        head = head->next;
-        delete temp;
-        if (!head)
-            tail = nullptr;
-        display();}
+void LinkedList::deleteStart() {
+    if (!head)
+        return;
+    Node *temp = head;
+    head = head->next;
+    delete temp;
+    if (!head)
+        tail = nullptr;
+    display();
+}
 
-    void deleteEnd(){
-        if (!head)
-            return;
-        if (head == tail)
-        {
-            delete head;
-            head = tail = nullptr;
-            return;
-        }
-        Node *temp = head;
-        while (temp->next != tail)
-            temp = temp->next;
-        delete tail;
+void LinkedList::deleteEnd() {
+    if (!head)
+        return;
+    if (head == tail) {
+        delete head;
+        head = tail = nullptr;
+        return;
+    }
+    Node *temp = head;
+    while (temp->next != tail)
+        temp = temp->next;
+    delete tail;
+    tail = temp;
+    tail->next = nullptr;
+    display();
+}
+
+void LinkedList::deleteAt(int pos) {
+    if (pos <= 1) {
+        deleteStart();
+        return;
+    }
+    Node *temp = head;
+    for (int i = 1; temp && temp->next && i < pos - 1; ++i)
+        temp = temp->next;
+    if (!temp || !temp->next)
+        return;
+    Node *delNode = temp->next;
+    temp->next = delNode->next;
+    if (delNode == tail)
         tail = temp;
-        tail->next = nullptr;
-        display();}
+    delete delNode;
+    display();
+}
 
-    void deleteAt(int pos){
-        if (pos <= 1)
-        {
-            deleteStart();
-            return;
-        }
-        Node *temp = head;
-        for (int i = 1; temp && temp->next && i < pos - 1; ++i)
-            temp = temp->next;
-        if (!temp || !temp->next)
-            return;
-        Node *delNode = temp->next;
-        temp->next = delNode->next;
-        if (delNode == tail)
-            tail = temp;
-        delete delNode;
-        display();}};
-int main(){
+int main() {
     LinkedList list;
     int choice, value, pos;
     cout << "Enter first value of the Node: ";
     cin >> value;
     list.create(value);
-    while (true){
+    while (true) {
         cout << "\n=== Linked List Menu ===\n";
         cout << "1. Insert at Start\n";
         cout << "2. Insert at End\n";
@@ -156,8 +171,7 @@ int main(){
         cout << "0. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
-        switch (choice)
-        {
+        switch (choice) {
         case 1:
             cout << "Enter value to insert at start: ";
             cin >> value;
@@ -189,10 +203,10 @@ int main(){
         case 7:
             cout << "Enter value to search: ";
             cin >> value;
-            if (list.search(value)==-1)
+            if (list.search(value) == -1)
                 cout << "Value NOT found.\n";
             else
-            cout << "Value found at postion "<<list.search(value)<<" in the list.\n";
+                cout << "Value found at position " << list.search(value) << " in the list.\n";
             break;
         case 8:
             list.reverse();
@@ -205,4 +219,7 @@ int main(){
         case 0:
             return 0;
         default:
-            cout << "Invalid choice! Try again.\n";}}}
+            cout << "Invalid choice! Try again.\n";
+        }
+    }
+}
