@@ -8,7 +8,7 @@ int main() {
     cout << "Enter an expression: ";
     getline(cin, expr);
 
-    checkExpression(expr);
+    Stack<char>::checkExpression(expr);
 
     return 0;
 }
