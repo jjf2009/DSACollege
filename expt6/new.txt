@@ -1,0 +1,164 @@
+// string addlargeNum::addLargeFloats(string num1, string num2) {
+//     size_t pos1 = num1.find('.');
+//     size_t pos2 = num2.find('.');
+
+//     if (pos1 == string::npos) num1 += '.', pos1 = num1.size()-1;
+//     if (pos2 == string::npos) num2 += '.', pos2 = num2.size()-1;
+
+//     int dec1 = num1.size() - pos1 - 1;
+//     int dec2 = num2.size() - pos2 - 1;
+//     if (dec1 < dec2) num1.append(dec2 - dec1, '0');
+//     else if (dec2 < dec1) num2.append(dec1 - dec2, '0');
+
+//     num1.erase(num1.find('.'), 1);
+//     num2.erase(num2.find('.'), 1);
+
+//     string res = addLargeIntegers(num1, num2);
+
+//     int decLen = max(dec1, dec2);
+//     if (decLen > 0) {
+//         res.insert(res.end() - decLen, '.');
+//     }
+//     return res;
+// }
+
+#ifndef addlargeNum
+#define addlargeNum
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+template <typename T>
+class addlargeNum {
+public:
+    static string addLargeNumber(const string &num1, const string &num2);
+};
+
+template <typename T>
+string addlargeNum<T>::addLargeNumber(const string &num1, const string &num2) {
+    vector<T> s1, s2, result;
+    int carry = 0;
+
+    for (char c : num1) s1.push(c - '0');
+    for (char c : num2) s2.push(c - '0');
+
+    while (!s1.empty() || !s2.empty() || carry) {
+        int sum = carry;
+        if (!s1.empty()) { sum += s1.top(); s1.pop(); }
+        if (!s2.empty()) { sum += s2.top(); s2.pop(); }
+        result.push(sum % 10);
+        carry = sum / 10;
+    }
+
+    string ans;
+    while (!result.empty()) {
+        ans.push_back(result.top() + '0');
+        result.pop();
+    }
+
+    return ans;
+}
+
+
+#endif
+
+
+
+    size_t pos_dot1 = num1.find('.');
+    size_t pos_dot2 = num2.find('.');
+
+    string i1 = (pos_dot1 == string::npos) ? num1 : num1.substr(0, pos_dot1);
+    string f1 = (pos_dot1 == string::npos) ? "" : num1.substr(pos_dot1 + 1);
+    
+    string i2 = (pos_dot2 == string::npos) ? num2 : num2.substr(0, pos_dot2);
+    string f2 = (pos_dot2 == string::npos) ? "" : num2.substr(pos_dot2 + 1);
+
+    // 2. Enforce the size constraint (max 100 digits on the integer part)
+    if (i1.length() > MAX_DIGITS || i2.length() > MAX_DIGITS) {
+        throw runtime_error("Input number's integer part exceeds the maximum allowed limit of " + to_string(MAX_DIGITS) + " digits.");
+    }
+
+    // 3. Normalize Fractional Parts: Pad the shorter fractional part with zeros
+    int max_frac_len = max(f1.length(), f2.length());
+    f1.resize(max_frac_len, '0');
+    f2.resize(max_frac_len, '0');
+
+    // Vectors to hold digits (simulating stack LIFO behavior with back/pop_back)
+    vector<int> v_f1, v_f2, v_f_result;
+    vector<int> v_i1, v_i2, v_i_result;
+    int carry = 0;
+
+    // --- 4. Fractional Addition ---
+    // Populate fractional vectors (MSD to LSD)
+
+    while (!v_f1.empty() || !v_f2.empty()) {
+        int sum = carry;
+        
+        if (!v_f1.empty()) { sum += v_f1.back(); v_f1.pop_back(); }
+        if (!v_f2.empty()) { sum += v_f2.back(); v_f2.pop_back(); }
+        
+        // Push result digit (LSD of the sum)
+        v_f_result.push_back(sum % 10);
+        
+        // Carry for the next digit (and potentially the integer part)
+        carry = sum / 10;
+    }
+    // v_f_result is currently LSD...MSD. Reverse it for concatenation.
+    std::reverse(v_f_result.begin(), v_f_result.end());
+
+    // --- 5. Integer Addition ---
+    // The final 'carry' from the fractional addition becomes the initial carry for the integer addition.
+    
+    // Populate integer vectors (MSD to LSD)
+    for (char c : i1) v_i1.push_back(c - '0');
+    for (char c : i2) v_i2.push_back(c - '0');
+
+    // Reverse vectors so LSD is at back()
+    std::reverse(v_i1.begin(), v_i1.end());
+    std::reverse(v_i2.begin(), v_i2.end());
+
+    // Perform addition on integer parts
+    while (!v_i1.empty() || !v_i2.empty() || carry) {
+        int sum = carry;
+        
+        if (!v_i1.empty()) { sum += v_i1.back(); v_i1.pop_back(); }
+        if (!v_i2.empty()) { sum += v_i2.back(); v_i2.pop_back(); }
+        
+        v_i_result.push_back(sum % 10);
+        carry = sum / 10;
+    }
+    // v_i_result is currently LSD...MSD. Reverse it.
+    std::reverse(v_i_result.begin(), v_i_result.end());
+
+    // --- 6. Construct Final Result String ---
+    string i_sum = "";
+    for (int digit : v_i_result) {
+        i_sum.push_back(digit + '0');
+    }
+    
+    string f_sum = "";
+    for (int digit : v_f_result) {
+        f_sum.push_back(digit + '0');
+    }
+
+    // Handle leading zeros for the integer part
+    size_t first_digit = i_sum.find_first_not_of('0');
+    if (string::npos == first_digit) {
+        i_sum = "0"; // Case where result is < 1 (e.g., 0.1 + 0.9 = 1, but 0.1 + 0.1 = 0.2)
+    } else {
+        i_sum = i_sum.substr(first_digit);
+    }
+    
+    // Remove unnecessary trailing zeros for the fractional part
+    while (!f_sum.empty() && f_sum.back() == '0') {
+        f_sum.pop_back();
+    }
+
+    // Combine Integer and Fractional parts
+    if (f_sum.empty()) {
+        return i_sum;
+    } else {
+        return i_sum + "." + f_sum;
+    }

@@ -1,30 +1,22 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 template <typename T>
 class Stack {
 private:
     vector<T> elements;
     unsigned long MAX_SIZE = 100;
-
 public:
     bool flag = true;
-
-    // Declarations
     void push(T val);
     void pop();
     T top();
     bool isempty();
     bool isfull();
     void display();
-
-    // Bracket logic as class members
     static bool isMatching(char open, char close);
     static void checkExpression(string &expr);
 };
-
-// ---------------- Function Definitions ----------------
 
 template <typename T>
 void Stack<T>::push(T val) {
@@ -73,7 +65,6 @@ void Stack<T>::display() {
     cout << endl;
 }
 
-// ---------------- Bracket Matching Logic ----------------
 
 template <typename T>
 bool Stack<T>::isMatching(char open, char close) {
@@ -104,7 +95,7 @@ void Stack<T>::checkExpression(string &expr) {
         }
     }
 
-    // Final result check
+
     if (!st.isempty() && st.flag == true) {
         cout << "The statement is unbalanced\n";
         if (st.top() == '(' || st.top() == '{' || st.top() == '[') {
