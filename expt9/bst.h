@@ -6,7 +6,6 @@ template <typename T>
 class BST {
 private:
     class Node {
-    public:
         T data;
         Node* left;
         Node* right;

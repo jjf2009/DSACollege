@@ -6,7 +6,7 @@ int main() {
     BST<int> intTree;
     BST<char> charTree;
 
-    int choice, typeChoice;
+    int choice, typeChoice; 
 
     cout << "Choose data type:\n1. Integer\n2. Character\nEnter choice: ";
     cin >> typeChoice;
