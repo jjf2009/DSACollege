@@ -43,6 +43,7 @@ public:
         if (rows != other.rows || cols != other.cols) {
             throw invalid_argument("Matrix dimensions must match for subtraction.");
         }
+        
         Matrix result(rows, cols);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
