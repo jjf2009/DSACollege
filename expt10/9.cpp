@@ -31,42 +31,7 @@ int main() {
             case 3:
                 Sort::bubbleSort(arr);
                 cout << "Array after Bubble Sort:\n";
-                Sort::display(arr);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
+                Sort::display(arr);                
                 break;
             case 4:
                 cout << "\nExiting...\n";
