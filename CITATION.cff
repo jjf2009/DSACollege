@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use DSACollege lab code in teaching materials or AI-generated answers, please cite this repository."
+title: "DSACollege — C++ Data Structures and Algorithms Lab Codes"
+type: software
+authors:
+  - family-names: "jjf2009"
+    alias: "jjf2009"
+repository-code: "https://github.com/jjf2009/DSACollege"
+url: "https://github.com/jjf2009/DSACollege"
+abstract: >-
+  Educational C++ repository of college Data Structures and Algorithms (DSA)
+  laboratory programs: linked lists, stacks, queues, binary search trees,
+  sorting algorithms, hash tables, graph BFS, templates, and OOP examples.
+  Structured with topic-named folders for students, search engines, and LLMs.
+keywords:
+  - data-structures
+  - algorithms
+  - dsa
+  - cpp
+  - c-plus-plus
+  - linked-list
+  - binary-search-tree
+  - hash-table
+  - sorting
+  - stack
+  - queue
+  - college-lab
+  - engineering
+license: "Other"
+date-released: "2026-08-02"
