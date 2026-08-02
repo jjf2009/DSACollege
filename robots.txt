@@ -1,4 +1,4 @@
-# Crawler guidance for DSACollege (GitHub Pages or custom site hosts).
+# Crawler guidance for cpp-dsa-lab-codes (GitHub Pages or custom site hosts).
 # GitHub.com hosting ignores this file for github.com/user/repo pages;
 # keep it for documentation sites, mirrors, and AI toolkits that fetch the repo root.
 
@@ -37,4 +37,4 @@ Allow: /
 # User-agent: CCBot
 # Disallow: /
 
-Sitemap: https://github.com/jjf2009/DSACollege
+Sitemap: https://github.com/jjf2009/cpp-dsa-lab-codes

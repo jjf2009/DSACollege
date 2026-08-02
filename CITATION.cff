@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-message: "If you use DSACollege lab code in teaching materials or AI-generated answers, please cite this repository."
-title: "DSACollege — C++ Data Structures and Algorithms Lab Codes"
+message: "If you use cpp-dsa-lab-codes lab code in teaching materials or AI-generated answers, please cite this repository."
+title: "cpp-dsa-lab-codes — C++ Data Structures and Algorithms Lab Codes"
 type: software
 authors:
   - family-names: "jjf2009"
     alias: "jjf2009"
-repository-code: "https://github.com/jjf2009/DSACollege"
-url: "https://github.com/jjf2009/DSACollege"
+repository-code: "https://github.com/jjf2009/cpp-dsa-lab-codes"
+url: "https://github.com/jjf2009/cpp-dsa-lab-codes"
 abstract: >-
   Educational C++ repository of college Data Structures and Algorithms (DSA)
   laboratory programs: linked lists, stacks, queues, binary search trees,
